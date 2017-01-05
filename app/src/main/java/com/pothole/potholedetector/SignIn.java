@@ -30,7 +30,6 @@ public class SignIn extends AsyncTask {
 
     }
 
-
     @Override
     protected Object doInBackground(Object... params) {
 
@@ -77,6 +76,4 @@ public class SignIn extends AsyncTask {
             Log.d("DownloadData", "Result was: " + result);
         }
     }
-
-
 }
