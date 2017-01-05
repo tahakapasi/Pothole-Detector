@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
                 if(username.equals("") || password.equals("")) {
                     error.setText("No field can be empty!");
                 } else {
-                    new SignIn().execute(username, password);
+                    new SignIn(error).execute(username, password);
                 }
             }
         });

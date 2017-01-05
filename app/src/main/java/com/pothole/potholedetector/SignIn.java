@@ -2,6 +2,7 @@ package com.pothole.potholedetector;
 
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.TextView;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -17,6 +18,12 @@ import javax.xml.transform.Result;
  */
 
 public class SignIn extends AsyncTask {
+
+    private TextView error;
+
+    public SignIn(TextView errorBox) {
+        error = errorBox;
+    }
 
     @Override
     protected void onPreExecute() {
@@ -62,8 +69,13 @@ public class SignIn extends AsyncTask {
     }
     @Override
     protected void onPostExecute(Object result) {
-        //TO-DO Use data correctly here
-        Log.d("DownloadData", "Result was: " + result);
+
+        if (result.equals("0")) {
+            error.setText("Invalid credentials");
+        } else {
+            //TO-DO Use data correctly here
+            Log.d("DownloadData", "Result was: " + result);
+        }
     }
 
 
