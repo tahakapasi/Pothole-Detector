@@ -17,7 +17,7 @@
         android:ems="10"
         android:layout_marginTop="68dp"
         android:id="@+id/username"
-        android:hint="Username"
+        android:hint="Email"
         android:layout_below="@+id/error"
         android:layout_centerHorizontal="true" />
 
@@ -28,7 +28,8 @@
         android:layout_marginTop="96dp"
         android:id="@+id/error"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:textColor="@android:color/holo_red_dark" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -49,6 +50,7 @@
         android:id="@+id/loginButton"
         android:layout_below="@+id/password"
         android:layout_alignEnd="@+id/password"
-        android:layout_alignStart="@+id/password" />
+        android:layout_alignStart="@+id/password"
+        android:onClick="login"/>
 
 </RelativeLayout>
