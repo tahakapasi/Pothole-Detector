@@ -36,7 +36,6 @@ public class MainActivity extends AppCompatActivity {
                     new SignIn().execute(username, password);
                 }
             }
-
         });
     }
 }

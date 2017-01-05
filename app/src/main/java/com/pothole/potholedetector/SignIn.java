@@ -56,15 +56,13 @@ public class SignIn extends AsyncTask {
             }
             return sb.toString();
 
-
         } catch(Exception e){
             return new String("Exception: " + e.getMessage());
         }
-
-
-        }
+    }
     @Override
     protected void onPostExecute(Object result) {
+        //TO-DO Use data correctly here
         Log.d("DownloadData", "Result was: " + result);
     }
 
