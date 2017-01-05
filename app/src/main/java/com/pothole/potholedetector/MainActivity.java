@@ -1,9 +1,7 @@
 package com.pothole.potholedetector;
 
-import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -32,16 +30,13 @@ public class MainActivity extends AppCompatActivity {
                 error.setText("");
                 String username = usernameField.getText().toString();
                 String password = passwordField.getText().toString();
-                if(username.equals("") || password.equals(""))
-                {
-                    error.setText("Username or password cannot be empty. Please try again.");
-                }
-                else {
+                if(username.equals("") || password.equals("")) {
+                    error.setText("No field can be empty!");
+                } else {
                     new SignIn().execute(username, password);
                 }
             }
 
         });
-
     }
 }
