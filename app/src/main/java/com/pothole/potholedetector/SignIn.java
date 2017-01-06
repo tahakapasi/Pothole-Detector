@@ -1,8 +1,14 @@
 package com.pothole.potholedetector;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.AsyncTask;
-import android.util.Log;
 import android.widget.TextView;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -11,17 +17,17 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
 
-import javax.xml.transform.Result;
-
 /**
  * Created by taha on 5/1/17.
  */
 
 public class SignIn extends AsyncTask {
 
+    public Context activity;
     private TextView error;
 
-    public SignIn(TextView errorBox) {
+    public SignIn(Context main, TextView errorBox) {
+        activity = main;
         error = errorBox;
     }
 
@@ -72,8 +78,24 @@ public class SignIn extends AsyncTask {
         if (result.equals("0")) {
             error.setText("Invalid credentials");
         } else {
-            //TO-DO Use data correctly here
-            Log.d("DownloadData", "Result was: " + result);
+
+            JSONObject getResult = null;
+            try {
+                getResult = new JSONObject(result.toString());
+                SharedPreferences sharedPref = activity.getSharedPreferences("userInfo", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPref.edit();
+                editor.putInt("id",Integer.parseInt(String.valueOf(getResult.get("id"))));
+                editor.putString("name",String.valueOf(getResult.get("name")));
+                editor.commit();
+
+                Intent home = new Intent(activity,Home.class);
+                activity.startActivity(home);
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            error.setTextColor(Color.GREEN);
+            error.setText("Login successful!");
         }
     }
 }
