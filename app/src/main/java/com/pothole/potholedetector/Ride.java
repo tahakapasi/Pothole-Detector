@@ -3,16 +3,18 @@ package com.pothole.potholedetector;
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
+import android.util.Log;
 import android.widget.Toast;
 
 public class Ride extends Service {
     public Ride() {
+        Log.d("HelloItsMe","I am in Ride");
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         // Let it continue running until it is stopped.
-        Toast.makeText(this, "Service Started", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "Service Started", Toast.LENGTH_SHORT).show();
         return START_STICKY;
     }
 
@@ -25,7 +27,7 @@ public class Ride extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Toast.makeText(this, "Service Destroyed", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "Service Destroyed", Toast.LENGTH_SHORT).show();
     }
 
 }
