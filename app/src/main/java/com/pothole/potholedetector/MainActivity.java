@@ -10,9 +10,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 public class MainActivity extends AppCompatActivity {
 
     private EditText usernameField, passwordField;
@@ -48,7 +45,6 @@ public class MainActivity extends AppCompatActivity {
                     error.setText("No field can be empty!");
                 } else {
                     new SignIn(MainActivity.this,error).execute(username, password);
-                    finish();
                 }
             }
         });

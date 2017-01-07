@@ -1,8 +1,12 @@
 package com.pothole.potholedetector;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -12,9 +16,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 public class Home extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private TextView userNameField;
+    private TextView userEmailField;
+    private int flag = 0;
+    FloatingActionButton rideButton;
+    Ride ride;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,12 +36,31 @@ public class Home extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        SharedPreferences sharedPreferences = getSharedPreferences("userInfo",Context.MODE_PRIVATE);
+        if (!sharedPreferences.contains("id")) {
+            Intent login = new Intent(this,MainActivity.class);
+            startActivity(login);
+            finish();
+        }
+
+        ride = new Ride();
+        rideButton = (FloatingActionButton) findViewById(R.id.rideButton);
+        rideButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                if (flag == 0) {
+                    Log.d("Hello","I am here");
+//                    ride.startService(new Intent(getBaseContext(), Ride.class));
+                    rideButton.setImageResource(R.drawable.ic_landing);
+                    Snackbar.make(view, "Your ride has begun!", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                    flag = 1;
+                } else {
+//                    ride.stopSelf();
+                    rideButton.setImageResource(R.drawable.ic_takeoff);
+                    Snackbar.make(view, "Your ride has ended!", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                    flag=0;
+
+                }
             }
         });
 
@@ -40,6 +72,16 @@ public class Home extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        View navHeaderHome = navigationView.getHeaderView(0);
+
+        userNameField = (TextView) navHeaderHome.findViewById(R.id.userName);
+        userEmailField = (TextView) navHeaderHome.findViewById(R.id.userEmail);
+
+        userNameField.setText(sharedPreferences.getString("name","Unknown"));
+        userEmailField.setText(sharedPreferences.getString("email","Unknown"));
+
+
     }
 
     @Override
@@ -88,10 +130,15 @@ public class Home extends AppCompatActivity
 
         } else if (id == R.id.nav_manage) {
 
-        } else if (id == R.id.nav_share) {
+        } else if (id == R.id.logout) {
+            SharedPreferences  sharedPref = getSharedPreferences("userInfo", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPref.edit();
+            editor.clear();
+            editor.commit();
 
-        } else if (id == R.id.nav_send) {
-
+            Intent login = new Intent(this, MainActivity.class);
+            startActivity(login);
+            finish();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

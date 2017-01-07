@@ -1,5 +1,6 @@
 package com.pothole.potholedetector;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -86,10 +87,13 @@ public class SignIn extends AsyncTask {
                 SharedPreferences.Editor editor = sharedPref.edit();
                 editor.putInt("id",Integer.parseInt(String.valueOf(getResult.get("id"))));
                 editor.putString("name",String.valueOf(getResult.get("name")));
+                editor.putString("email",String.valueOf(getResult.get("email")));
                 editor.commit();
 
                 Intent home = new Intent(activity,Home.class);
                 activity.startActivity(home);
+                ((Activity)activity).finish();
+
 
             } catch (JSONException e) {
                 e.printStackTrace();
