@@ -27,7 +27,7 @@ public class Home extends AppCompatActivity
     private TextView userEmailField;
     private int flag = 0;
     FloatingActionButton rideButton;
-    Ride ride;
+    Ride ride=new Ride();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,27 +42,28 @@ public class Home extends AppCompatActivity
             startActivity(login);
             finish();
         }
-
-        ride = new Ride();
+//        final Intent i=new Intent(this,Ride.class);
+//        ride = new Ride();
         rideButton = (FloatingActionButton) findViewById(R.id.rideButton);
         rideButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (flag == 0) {
-                    Log.d("Hello","I am here");
+//                    Log.d("Hello","I am here");
                     rideButton.setImageResource(R.drawable.ic_landing);
-                    Snackbar.make(view, "Your ride has begun!", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                    Snackbar.make(view, "Your ride has begun!", Snackbar.LENGTH_SHORT).setAction("Action", null).show();
                     flag = 1;
-//                    ride.startService(new Intent(getBaseContext(), Ride.class));
+                    startService(view);
                 } else {
                     rideButton.setImageResource(R.drawable.ic_takeoff);
-                    Snackbar.make(view, "Your ride has ended!", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                    Snackbar.make(view, "Your ride has ended!", Snackbar.LENGTH_SHORT).setAction("Action", null).show();
                     flag = 0;
-//                    ride.stopSelf();
+                    stopService(view);
 
                 }
             }
         });
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -82,6 +83,15 @@ public class Home extends AppCompatActivity
         userEmailField.setText(sharedPreferences.getString("email","Unknown"));
 
 
+    }
+
+    public void startService(View view) {
+        startService(new Intent(getBaseContext(), Ride.class));
+    }
+
+    // Method to stop the service
+    public void stopService(View view) {
+        stopService(new Intent(getBaseContext(), Ride.class));
     }
 
     @Override
