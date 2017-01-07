@@ -50,15 +50,15 @@ public class Home extends AppCompatActivity
             public void onClick(View view) {
                 if (flag == 0) {
                     Log.d("Hello","I am here");
-//                    ride.startService(new Intent(getBaseContext(), Ride.class));
                     rideButton.setImageResource(R.drawable.ic_landing);
                     Snackbar.make(view, "Your ride has begun!", Snackbar.LENGTH_LONG).setAction("Action", null).show();
                     flag = 1;
+//                    ride.startService(new Intent(getBaseContext(), Ride.class));
                 } else {
-//                    ride.stopSelf();
                     rideButton.setImageResource(R.drawable.ic_takeoff);
                     Snackbar.make(view, "Your ride has ended!", Snackbar.LENGTH_LONG).setAction("Action", null).show();
                     flag = 0;
+//                    ride.stopSelf();
 
                 }
             }

@@ -9,7 +9,6 @@ public class Ride extends Service {
     public Ride() {
     }
 
-
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         // Let it continue running until it is stopped.
