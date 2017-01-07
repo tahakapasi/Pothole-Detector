@@ -58,7 +58,7 @@ public class Home extends AppCompatActivity
 //                    ride.stopSelf();
                     rideButton.setImageResource(R.drawable.ic_takeoff);
                     Snackbar.make(view, "Your ride has ended!", Snackbar.LENGTH_LONG).setAction("Action", null).show();
-                    flag=0;
+                    flag = 0;
 
                 }
             }
