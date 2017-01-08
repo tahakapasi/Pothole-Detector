@@ -8,7 +8,6 @@ import android.widget.Toast;
 
 public class Ride extends Service {
     public Ride() {
-        Log.d("HelloItsMe","I am in Ride");
     }
 
     @Override
