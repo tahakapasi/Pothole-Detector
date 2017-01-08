@@ -27,7 +27,6 @@ public class Home extends AppCompatActivity
     private TextView userEmailField;
     private int flag = 0;
     FloatingActionButton rideButton;
-    Ride ride=new Ride();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,14 +41,12 @@ public class Home extends AppCompatActivity
             startActivity(login);
             finish();
         }
-//        final Intent i=new Intent(this,Ride.class);
-//        ride = new Ride();
+
         rideButton = (FloatingActionButton) findViewById(R.id.rideButton);
         rideButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (flag == 0) {
-//                    Log.d("Hello","I am here");
                     rideButton.setImageResource(R.drawable.ic_landing);
                     Snackbar.make(view, "Your ride has begun!", Snackbar.LENGTH_SHORT).setAction("Action", null).show();
                     flag = 1;
@@ -89,7 +86,6 @@ public class Home extends AppCompatActivity
         startService(new Intent(getBaseContext(), Ride.class));
     }
 
-    // Method to stop the service
     public void stopService(View view) {
         stopService(new Intent(getBaseContext(), Ride.class));
     }
