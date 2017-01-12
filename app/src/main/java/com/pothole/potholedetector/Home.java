@@ -27,6 +27,7 @@ public class Home extends AppCompatActivity
     private TextView userEmailField;
     private int flag = 0;
     FloatingActionButton rideButton;
+    View newView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +47,7 @@ public class Home extends AppCompatActivity
         rideButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                newView = view;
                 if (flag == 0) {
                     rideButton.setImageResource(R.drawable.ic_landing);
                     Snackbar.make(view, "Your ride has begun!", Snackbar.LENGTH_SHORT).setAction("Action", null).show();
@@ -141,7 +143,7 @@ public class Home extends AppCompatActivity
             SharedPreferences.Editor editor = sharedPref.edit();
             editor.clear();
             editor.commit();
-
+            stopService(newView);
             Intent login = new Intent(this, MainActivity.class);
             startActivity(login);
             finish();

@@ -14,6 +14,9 @@ import android.widget.Toast;
 public class Ride extends Service implements SensorEventListener {
 
 
+    float x1;
+    float y1;
+    float z1 = (float) 9.8;
     @Override
     public void onSensorChanged(SensorEvent event) {
         Sensor mySensor = event.sensor;
@@ -21,7 +24,12 @@ public class Ride extends Service implements SensorEventListener {
             float x = event.values[0];
             float y = event.values[1];
             float z = event.values[2];
-            Log.d("X,Y,Z", String.valueOf(x)+","+String.valueOf(y)+","+String.valueOf(z));
+            if ( x > 1 && y > 1 && z > 9.8) {
+                if (z-z1 >= 0.2*9.8) {
+                    Log.d("Z-Diff", String.valueOf(z-z1));
+                }
+            }
+        z1=z;
         }
     }
 
@@ -34,12 +42,9 @@ public class Ride extends Service implements SensorEventListener {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        // Let it continue running until it is stopped.
-//        Toast.makeText(this, "Service Started", Toast.LENGTH_SHORT).show();
         SensorManager senSensorManager = (SensorManager)getSystemService(Context.SENSOR_SERVICE);
         Sensor senAccelerometer = senSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         senSensorManager.registerListener(this, senAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);
-
         return START_STICKY;
     }
 
