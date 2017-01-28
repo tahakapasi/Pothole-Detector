@@ -6,7 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.util.Log;
+import android.support.v4.app.ActivityCompat;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -18,12 +18,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
+
 
 public class Home extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private TextView userNameField;
+    private static final int MY_PERMISSIONS_REQUEST_LOCATION = 1;
     private TextView userEmailField;
     private int flag = 0;
     FloatingActionButton rideButton;
@@ -75,13 +75,16 @@ public class Home extends AppCompatActivity
 
         View navHeaderHome = navigationView.getHeaderView(0);
 
-        userNameField = (TextView) navHeaderHome.findViewById(R.id.userName);
+        TextView userNameField = (TextView) navHeaderHome.findViewById(R.id.userName);
         userEmailField = (TextView) navHeaderHome.findViewById(R.id.userEmail);
 
         userNameField.setText(sharedPreferences.getString("name","Unknown"));
         userEmailField.setText(sharedPreferences.getString("email","Unknown"));
 
-
+        ActivityCompat.requestPermissions(this,
+                new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION, android.Manifest.permission.ACCESS_COARSE_LOCATION},
+                MY_PERMISSIONS_REQUEST_LOCATION);
+        return;
     }
 
     public void startService(View view) {
@@ -92,7 +95,7 @@ public class Home extends AppCompatActivity
         stopService(new Intent(getBaseContext(), Ride.class));
     }
 
-    @Override
+        @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
@@ -142,7 +145,7 @@ public class Home extends AppCompatActivity
             SharedPreferences  sharedPref = getSharedPreferences("userInfo", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPref.edit();
             editor.clear();
-            editor.commit();
+            editor.apply();
             stopService(newView);
             Intent login = new Intent(this, MainActivity.class);
             startActivity(login);
@@ -153,4 +156,5 @@ public class Home extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
 }
