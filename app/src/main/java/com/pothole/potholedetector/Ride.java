@@ -75,15 +75,19 @@ public class Ride extends Service implements SensorEventListener {
             float x = event.values[0];
             float y = event.values[1];
             float z = event.values[2];
-                if (z - z1 >= 0.2 * 9.8) {
 
+                if (z - z1 >= 0.2 * 9.8) {
+                    Log.d("X",String.valueOf(x));
+                    Log.d("Y",String.valueOf(y));
+                    Log.d("Z",String.valueOf(z));
                     Log.d("Z-Diff", String.valueOf(z - z1));
                     Log.d("Location Coordinates", mLocationListeners[1].mLastLocation.getLatitude() + ", " + mLocationListeners[1].mLastLocation.getLongitude());
 
                     longitude = mLocationListeners[1].mLastLocation.getLongitude();
                     latitude = mLocationListeners[1].mLastLocation.getLatitude();
-
+                    Toast.makeText(getApplicationContext(),"Pothole detected!",Toast.LENGTH_SHORT);
                     new PotholeRecorder().execute(Double.toString(longitude),Double.toString(latitude),userId);
+
 
                 }
             z1 = z;

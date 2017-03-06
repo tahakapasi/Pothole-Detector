@@ -44,7 +44,7 @@ public class SignIn extends AsyncTask {
             String username = (String)params[0];
             String password = (String)params[1];
 
-            String link="http://ec2-52-38-227-51.us-west-2.compute.amazonaws.com/potholeAppBackend/login.php";
+            String link="http://ec2-52-26-92-134.us-west-2.compute.amazonaws.com/potholeAppBackend/login.php";
             String data  = URLEncoder.encode("username", "UTF-8") + "=" + URLEncoder.encode(username, "UTF-8");
             data += "&" + URLEncoder.encode("password", "UTF-8") + "=" + URLEncoder.encode(password, "UTF-8");
 

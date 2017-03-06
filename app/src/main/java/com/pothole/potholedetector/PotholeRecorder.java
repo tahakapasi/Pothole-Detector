@@ -23,15 +23,13 @@ public class PotholeRecorder extends AsyncTask {
         int userId = (int) params[2];
 
         try {
-
-            String link="http://ec2-52-38-227-51.us-west-2.compute.amazonaws.com/potholeAppBackend/potholerecorder.php";
+            String link="http://ec2-52-26-92-134.us-west-2.compute.amazonaws.com/potholeAppBackend/potholerecorder.php";
             String data  = URLEncoder.encode("longitude", "UTF-8") + "=" + URLEncoder.encode(longitude, "UTF-8");
             data += "&" + URLEncoder.encode("latitude", "UTF-8") + "=" + URLEncoder.encode(latitude, "UTF-8");
             data += "&" + URLEncoder.encode("userId", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(userId), "UTF-8");
 
             URL url = new URL(link);
             URLConnection conn = url.openConnection();
-
 
             conn.setDoOutput(true);
             OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
