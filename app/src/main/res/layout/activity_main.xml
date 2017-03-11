@@ -4,53 +4,59 @@
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?attr/colorPrimary"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.pothole.potholedetector.MainActivity">
 
+
     <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textEmailAddress"
-        android:ems="10"
-        android:layout_marginTop="68dp"
         android:id="@+id/username"
-        android:hint="Email"
-        android:layout_below="@+id/error"
-        android:layout_centerHorizontal="true" />
-
-    <TextView
-        android:text=""
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="96dp"
-        android:id="@+id/error"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:textColor="@android:color/holo_red_dark" />
+        android:layout_alignStart="@+id/password"
+        android:layout_marginTop="39dp"
+        android:backgroundTint="#FFFFFF"
+        android:ems="10"
+        android:hint="Email"
+        android:inputType="textEmailAddress"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#FFFFFF"
+        android:textColorLink="?attr/colorPrimary"
+        android:textCursorDrawable="@null" />
+
 
     <EditText
+        android:id="@+id/password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="textPassword"
-        android:ems="10"
-        android:layout_marginTop="22dp"
-        android:id="@+id/password"
-        android:hint="Password"
         android:layout_below="@+id/username"
-        android:layout_alignStart="@+id/username" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="#FFFFFF"
+        android:ems="10"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#FFFFFF"
+        android:textColorLink="?attr/colorPrimary"
+        android:textCursorDrawable="@null" />
 
     <Button
-        android:text="Login"
+        android:id="@+id/loginButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:id="@+id/loginButton"
-        android:layout_below="@+id/password"
         android:layout_alignEnd="@+id/password"
         android:layout_alignStart="@+id/password"
-        android:onClick="login"/>
+        android:layout_below="@+id/password"
+        android:layout_marginTop="16dp"
+        android:background="#FFFFFF"
+        android:onClick="login"
+        android:text="Login"
+        android:textColor="?attr/colorPrimary"
+        android:textSize="16sp"
+        android:textStyle="bold" />
 
 </RelativeLayout>

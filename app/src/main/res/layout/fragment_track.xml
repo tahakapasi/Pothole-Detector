@@ -4,14 +4,6 @@
     android:layout_height="match_parent"
     tools:context="com.pothole.potholedetector.TrackFragment">
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Parse XML File"
-        android:id="@+id/btnParse"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
     <ListView
         android:id="@+id/listPotholes"
         android:layout_width="match_parent"

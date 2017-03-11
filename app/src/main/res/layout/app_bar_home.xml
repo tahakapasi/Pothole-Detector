@@ -31,10 +31,12 @@
         android:id="@+id/rideButton"
         android:layout_width="100dp"
         android:layout_height="100dp"
+        android:layout_gravity="top|center_horizontal"
         android:layout_margin="@dimen/fab_margin"
+        app:backgroundTint="?attr/colorPrimary"
         app:layout_anchor="@+id/include"
         app:layout_anchorGravity="center_vertical|center_horizontal"
-        android:layout_gravity="top|center_horizontal"
+        app:rippleColor="#FFFFFF"
         app:srcCompat="@drawable/ic_takeoff" />
 
     <include layout="@layout/content_home"

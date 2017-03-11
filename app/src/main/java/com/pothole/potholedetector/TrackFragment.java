@@ -1,5 +1,6 @@
 package com.pothole.potholedetector;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -7,6 +8,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,6 +47,8 @@ public class TrackFragment extends Fragment {
     private int userId;
     private ListView listPotholes;
     private Button btnParse;
+    private ParsePotholes pp;
+    private ArrayAdapter<Potholes> arrayAdapter;
 
     private OnFragmentInteractionListener mListener;
     private View rootView;
@@ -89,17 +93,11 @@ public class TrackFragment extends Fragment {
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_track, container, false);
 
-        btnParse = (Button) rootView.findViewById(R.id.btnParse);
-        btnParse.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ParsePotholes pp = new ParsePotholes(previousPotholeData);
-                pp.process();
-                ArrayAdapter<Potholes> arrayAdapter = new ArrayAdapter<Potholes>(getContext(),R.layout.list_item,pp.getPotholes());
-                listPotholes.setAdapter(arrayAdapter);
-            }
-        });
+        arrayAdapter = new ArrayAdapter<Potholes>(getContext(),R.layout.list_item);
+        arrayAdapter.setNotifyOnChange(true);
+
         listPotholes = (ListView) rootView.findViewById(R.id.listPotholes);
+        listPotholes.setAdapter(arrayAdapter);
         // Inflate the layout for this fragment
         return rootView;
     }
@@ -144,6 +142,18 @@ public class TrackFragment extends Fragment {
     }
 
     private class getPotholes extends AsyncTask {
+
+        private ProgressDialog dialog = new ProgressDialog(getContext());
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            dialog.setMessage("Loading...");
+            dialog.setIndeterminate(false);
+            dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            dialog.show();
+        }
+
         @Override
         protected Object doInBackground(Object[] params) {
             try {
@@ -171,11 +181,24 @@ public class TrackFragment extends Fragment {
                 }
 
                 previousPotholeData = sb.toString();
-                return sb.toString();
+
 
             } catch(Exception e){
-                return new String("Exception: " + e.getMessage());
             }
+
+            pp = new ParsePotholes(previousPotholeData);
+            Log.v("Previous async task", previousPotholeData);
+            pp.process();
+            return pp;
+        }
+
+        @Override
+        protected void onPostExecute(Object o) {
+            super.onPostExecute(o);
+            if (dialog.isShowing()) {
+                dialog.dismiss();
+            }
+            arrayAdapter.addAll(pp.getPotholes());
         }
     }
 }

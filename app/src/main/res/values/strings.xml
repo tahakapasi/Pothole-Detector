@@ -22,5 +22,6 @@
         <item>Home</item>
         <item>Track</item>
     </string-array>
+    <string name="title_activity_register">Register</string>
 
 </resources>

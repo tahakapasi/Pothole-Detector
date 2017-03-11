@@ -1,10 +1,15 @@
 package com.pothole.potholedetector;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.widget.TextView;
 
@@ -25,16 +30,17 @@ import java.net.URLEncoder;
 public class SignIn extends AsyncTask {
 
     public Context activity;
-    private TextView error;
+    private ProgressDialog dialog;
 
-    public SignIn(Context main, TextView errorBox) {
+    public SignIn(Context main) {
         activity = main;
-        error = errorBox;
+        dialog = new ProgressDialog(main);
     }
 
     @Override
     protected void onPreExecute() {
-
+        dialog.setMessage("Signing in...");
+        dialog.show();
     }
 
     @Override
@@ -76,8 +82,20 @@ public class SignIn extends AsyncTask {
     @Override
     protected void onPostExecute(Object result) {
 
+        if (dialog.isShowing())
+            dialog.dismiss();
+
         if (result.equals("0")) {
-            error.setText("Invalid credentials");
+            new AlertDialog.Builder(activity)
+                    .setTitle("Incorrect credentials!")
+                    .setMessage("The email and password combination you have entered is incorrect")
+                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    })
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .show();
         } else {
 
             JSONObject getResult = null;
@@ -94,12 +112,9 @@ public class SignIn extends AsyncTask {
                 activity.startActivity(home);
                 ((Activity)activity).finish();
 
-
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            error.setTextColor(Color.GREEN);
-            error.setText("Login successful!");
         }
     }
 }

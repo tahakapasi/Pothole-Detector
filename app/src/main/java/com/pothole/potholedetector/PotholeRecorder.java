@@ -39,7 +39,7 @@ public class PotholeRecorder extends AsyncTask {
 
             BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 
-            StringBuilder sb = new StringBuilder();
+            StringBuilder sb =  new StringBuilder();
             String line = null;
 
             // Read Server Response
