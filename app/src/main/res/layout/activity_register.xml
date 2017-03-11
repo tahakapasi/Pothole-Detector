@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="?attr/colorPrimary"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.pothole.potholedetector.Register">
+
+    <EditText
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text=""
+        android:hint="Name"
+        tools:layout_editor_absoluteX="71dp"
+        tools:layout_editor_absoluteY="50dp"
+        android:textColor="#FFFFFF"
+        android:backgroundTint="#FFFFFF"
+        android:textColorHint="#FFFFFF"
+        android:textColorLink="?attr/colorPrimary"
+        android:textCursorDrawable="@null"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/email"
+        android:layout_marginTop="28dp" />
+
+    <EditText
+        android:id="@+id/email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textEmailAddress"
+        tools:layout_editor_absoluteX="71dp"
+        tools:layout_editor_absoluteY="111dp"
+        android:hint="Email"
+        android:textColor="#FFFFFF"
+        android:backgroundTint="#FFFFFF"
+        android:textColorHint="#FFFFFF"
+        android:textColorLink="?attr/colorPrimary"
+        android:textCursorDrawable="@null"
+        android:layout_below="@+id/name"
+        android:layout_alignStart="@+id/password" />
+
+    <EditText
+        android:id="@+id/password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPassword"
+        android:hint="Password"
+        tools:layout_editor_absoluteX="71dp"
+        tools:layout_editor_absoluteY="185dp"
+        android:textColor="#FFFFFF"
+        android:backgroundTint="#FFFFFF"
+        android:textColorHint="#FFFFFF"
+        android:textColorLink="?attr/colorPrimary"
+        android:textCursorDrawable="@null"
+        android:layout_below="@+id/email"
+        android:layout_alignStart="@+id/confirm_password" />
+
+    <EditText
+        android:id="@+id/confirm_password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPassword"
+        android:hint="Confirm Password"
+        tools:layout_editor_absoluteX="72dp"
+        tools:layout_editor_absoluteY="258dp"
+        android:textColor="#FFFFFF"
+        android:backgroundTint="#FFFFFF"
+        android:textColorHint="#FFFFFF"
+        android:textColorLink="?attr/colorPrimary"
+        android:textCursorDrawable="@null"
+        android:layout_below="@+id/password"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:id="@+id/register"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="70dp"
+        android:text="REGISTER"
+        android:textColor="?attr/colorPrimary"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:background="#FFFFFF"
+        android:layout_alignTop="@+id/confirm_password"
+        android:layout_alignStart="@+id/confirm_password"
+        android:layout_alignEnd="@+id/confirm_password" />
+
+</RelativeLayout>

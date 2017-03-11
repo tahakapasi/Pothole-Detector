@@ -20,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
 
     private EditText usernameField, passwordField;
     private Button loginButton;
+    private Button registerButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
 
         usernameField = (EditText) findViewById(R.id.username);
         passwordField = (EditText) findViewById(R.id.password);
+        registerButton = (Button) findViewById(R.id.register);
         SharedPreferences sharedPref = getSharedPreferences("userInfo", Context.MODE_PRIVATE);
 
         if (sharedPref.contains("name") && sharedPref.contains("id")) {
@@ -69,6 +71,14 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     new SignIn(MainActivity.this).execute(username, password);
                 }
+            }
+        });
+
+        registerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(),Register.class);
+                startActivity(i);
             }
         });
     }
