@@ -4,11 +4,11 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/home"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/ic_home"
             android:title="Home" />
         <item
             android:id="@+id/track"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/ic_track"
             android:title="Track" />
     </group>
 
@@ -16,6 +16,7 @@
         <menu>
             <item
                 android:id="@+id/logout"
+                android:icon="@drawable/ic_logout"
                 android:title="Logout" />
         </menu>
     </item>
