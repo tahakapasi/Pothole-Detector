@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import org.json.*;
 
 /**
- * Created by taha on 6/3/17.
+ * Created by taha on 6/3/17
  */
 
 public class ParsePotholes {
@@ -27,11 +27,9 @@ public class ParsePotholes {
             JSONArray array = new JSONArray(previousPotholeData);
             for (int i = 0; i < array.length(); i++) {
                 Potholes currentRecord = new Potholes();
-                currentRecord.setReport_id(array.getJSONObject(i).getString("report_id"));
                 currentRecord.setLongitude(array.getJSONObject(i).getString("longitude"));
                 currentRecord.setLatitude(array.getJSONObject(i).getString("latitude"));
                 currentRecord.setStatus(array.getJSONObject(i).getString("status"));
-                currentRecord.setPriority(array.getJSONObject(i).getString("priority"));
                 currentRecord.setTime(array.getJSONObject(i).getString("time"));
                 potholes.add(currentRecord);
             }

@@ -7,11 +7,10 @@ import android.util.Log;
  */
 
 public class Potholes {
-    private String report_id;
+
     private String longitude;
     private String latitude;
     private String status;
-    private String priority;
     private String time;
 
     public String getTime() {
@@ -20,14 +19,6 @@ public class Potholes {
 
     public void setTime(String time) {
         this.time = time;
-    }
-
-    public String getReport_id() {
-        return report_id;
-    }
-
-    public void setReport_id(String report_id) {
-        this.report_id = report_id;
     }
 
     public String getLongitude() {
@@ -54,18 +45,9 @@ public class Potholes {
         this.status = status;
     }
 
-    public String getPriority() {
-        return priority;
-    }
-
-    public void setPriority(String priority) {
-        this.priority = priority;
-    }
-
     @Override
     public String toString() {
-        return "Report ID: " + getReport_id() + "\n" +
-                "Longitude: " + getLongitude() + " Latitude: " + getLatitude() + "\n" +
-                "Status: " + getStatus() + " Priority: " + getPriority() + " Time:" + getTime() + "\n";
+        return "Longitude: " + getLongitude() + " Latitude: " + getLatitude() + "\n" +
+                "Status: " + getStatus() + "\n" + " Time: " + getTime() + "\n";
     }
 }

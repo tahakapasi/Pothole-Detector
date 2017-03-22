@@ -32,6 +32,7 @@ public class Ride extends Service implements SensorEventListener {
     private static final float LOCATION_DISTANCE = 10f;
     double latitude,longitude;
     int userId;
+    int orientation;
 
     private class LocationListener implements android.location.LocationListener {
         Location mLastLocation;
@@ -72,23 +73,23 @@ public class Ride extends Service implements SensorEventListener {
     public void onSensorChanged(SensorEvent event) {
         Sensor mySensor = event.sensor;
         if (mySensor.getType() == Sensor.TYPE_ACCELEROMETER) {
-            float x = event.values[0];
-            float y = event.values[1];
-            float z = event.values[2];
-
-                if (z - z1 >= 0.2 * 9.8) {
-                    Log.d("X",String.valueOf(x));
-                    Log.d("Y",String.valueOf(y));
-                    Log.d("Z",String.valueOf(z));
-                    Log.d("Z-Diff", String.valueOf(z - z1));
-                    Log.d("Location Coordinates", mLocationListeners[1].mLastLocation.getLatitude() + ", " + mLocationListeners[1].mLastLocation.getLongitude());
-
+            float z;
+            if (orientation == 0) {
+                z = event.values[2];
+            } else {
+                z = event.values[1];
+            }
+            Log.d("Z",String.valueOf(z));
+                if (z1-z >= 5.5) {
+//                    Log.d("Z-Diff", String.valueOf(z - z1));
+                    Log.d("Pothole Detected", mLocationListeners[1].mLastLocation.getLatitude() + ", " + mLocationListeners[1].mLastLocation.getLongitude());
                     longitude = mLocationListeners[1].mLastLocation.getLongitude();
                     latitude = mLocationListeners[1].mLastLocation.getLatitude();
-                    Toast.makeText(getApplicationContext(),"Pothole detected!",Toast.LENGTH_SHORT);
-                    new PotholeRecorder().execute(Double.toString(longitude),Double.toString(latitude),userId);
 
-
+                    if (longitude != 0.0 && latitude != 0.0) {
+                        Log.d("Hello", "Pothole detected!");
+                        new PotholeRecorder().execute(Double.toString(longitude), Double.toString(latitude), userId);
+                    }
                 }
             z1 = z;
         }
@@ -106,6 +107,11 @@ public class Ride extends Service implements SensorEventListener {
         SensorManager senSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         Sensor senAccelerometer = senSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         senSensorManager.registerListener(this, senAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);
+
+        if (intent !=null && intent.getExtras()!=null) {
+            orientation = intent.getExtras().getInt("Orientation");
+        }
+        Log.d("test", String.valueOf(orientation));
 
         return START_STICKY;
     }

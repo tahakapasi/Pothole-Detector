@@ -13,7 +13,9 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.PopupMenu;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -43,6 +45,7 @@ public class Home extends AppCompatActivity implements TrackFragment.OnFragmentI
     private static final int MY_PERMISSIONS_REQUEST_LOCATION = 1;
     private TextView userEmailField;
     private int flag = 0;
+    private int orientation;
     private Toolbar toolbar;
     FloatingActionButton rideButton;
     View newView;
@@ -91,12 +94,8 @@ public class Home extends AppCompatActivity implements TrackFragment.OnFragmentI
             public void onClick(View view) {
                 newView = view;
                 if (flag == 0) {
-                    displayLocationSettingsRequest(getApplicationContext());
-                    rideButton.setImageResource(R.drawable.ic_landing);
-                    Snackbar.make(view, "Your ride has begun!", Snackbar.LENGTH_SHORT).setAction("Action", null).show();
-                    flag = 1;
-                    starttext.setText("STOP RIDE");
-                    startService(view);
+                    registerForContextMenu(rideButton);
+                    openContextMenu(rideButton);
                 } else {
                     rideButton.setImageResource(R.drawable.ic_takeoff);
                     Snackbar.make(view, "Your ride has ended!", Snackbar.LENGTH_SHORT).setAction("Action", null).show();
@@ -139,8 +138,39 @@ public class Home extends AppCompatActivity implements TrackFragment.OnFragmentI
 
     }
 
-    public void startService(View view) {
-        startService(new Intent(getBaseContext(), Ride.class));
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        menu.setHeaderTitle("Select orientation");
+        menu.add("Horizontal");
+        menu.add("Vertical");
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        switch (item.getTitle().toString()) {
+            case "Vertical":
+                orientation = 1;
+                break;
+            case "Horizontal":
+                orientation = 0;
+                break;
+        }
+        Intent mIntent = new Intent(this, Ride.class);
+        Bundle mBundle = new Bundle();
+        mBundle.putInt("Orientation", orientation);
+        mIntent.putExtras(mBundle);
+        displayLocationSettingsRequest(getApplicationContext());
+        rideButton.setImageResource(R.drawable.ic_landing);
+        Snackbar.make(newView, "Your ride has begun!", Snackbar.LENGTH_SHORT).setAction("Action", null).show();
+        flag = 1;
+        starttext.setText("STOP RIDE");
+        startService(newView, mIntent);
+        return super.onContextItemSelected(item);
+    }
+
+    public void startService(View view, Intent intent) {
+        startService(intent);
     }
 
     public void stopService(View view) {
