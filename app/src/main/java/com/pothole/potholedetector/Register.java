@@ -158,7 +158,7 @@ public class Register extends AppCompatActivity {
 
             try {
 
-                String link="http://ec2-52-26-92-134.us-west-2.compute.amazonaws.com/potholeAppBackend/addUser.php";
+                String link="http://ec2-52-88-157-150.us-west-2.compute.amazonaws.com/potholeAppBackend/addUser.php";
                 String data  = URLEncoder.encode("name", "UTF-8") + "=" + URLEncoder.encode(name, "UTF-8");
                 data += "&" + URLEncoder.encode("password", "UTF-8") + "=" + URLEncoder.encode(password, "UTF-8");
                 data += "&" + URLEncoder.encode("email", "UTF-8") + "=" + URLEncoder.encode(email, "UTF-8");

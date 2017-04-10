@@ -157,7 +157,7 @@ public class TrackFragment extends Fragment {
         @Override
         protected Object doInBackground(Object[] params) {
             try {
-                String link="http://ec2-52-26-92-134.us-west-2.compute.amazonaws.com/potholeAppBackend/track.php";
+                String link="http://ec2-52-88-157-150.us-west-2.compute.amazonaws.com/potholeAppBackend/track.php";
                 String data = URLEncoder.encode("userId", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(userId), "UTF-8");
 
                 URL url = new URL(link);
